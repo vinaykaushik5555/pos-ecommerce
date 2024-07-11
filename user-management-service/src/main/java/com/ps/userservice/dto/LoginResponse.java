@@ -1,10 +1,12 @@
 package com.ps.userservice.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class LoginResponse {
     private String token;
-
-    // Getters and Setters
 }
