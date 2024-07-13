@@ -8,8 +8,10 @@ import com.ps.userservice.repository.RoleRepository;
 import com.ps.userservice.repository.UserRepository;
 import com.ps.userservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,10 +70,21 @@ public class UserService {
         return loginResponse;
     }
 
+    @Transactional(readOnly = true)
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or #email == authentication.principal.username")
     public UserResponse getUserProfile(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         return userMapper.toUserResponse(user);
     }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #email == authentication.principal.username")
+    public UserResponse getUserProfile(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return userMapper.toUserResponse(user);
+    }
+
 
     public UserResponse updateUserProfile(Long userId, UpdateUserProfileRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));

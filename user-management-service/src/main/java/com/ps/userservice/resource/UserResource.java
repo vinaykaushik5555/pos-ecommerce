@@ -46,6 +46,13 @@ public class UserResource {
         return ResponseEntity.ok(userResponse);
     }
 
+    @GetMapping("email/{email}")
+    public ResponseEntity<UserResponse> getUserProfile(@PathVariable String email) {
+        UserResponse userResponse = userService.getUserProfile(email);
+        return ResponseEntity.ok(userResponse);
+    }
+
+
     @PutMapping("/{userId}")
     @ApiOperation(value = "Update user profile", response = UserResponse.class)
     public ResponseEntity<UserResponse> updateUserProfile(

@@ -1,5 +1,6 @@
 package com.ps.userservice.util;
 
+import com.ps.userservice.config.SecurityProperties;
 import com.ps.userservice.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -25,10 +26,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-
+        String requestUri = request.getRequestURI();
+        // Skip the filter for permitAllPaths
+        //TODO: fix content matching in if statement , this code will not work as url may contain special chars
+        for (String path : securityProperties.getPermitAllPaths().toArray(new String[0])) {
+            if (requestUri.startsWith(path)) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
         final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;

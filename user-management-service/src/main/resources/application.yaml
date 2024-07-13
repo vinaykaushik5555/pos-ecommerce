@@ -14,7 +14,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    #show-sql: true
 
 jwt:
   secret: c2VjcmV0 #your_base64_encoded_secret_key_here
