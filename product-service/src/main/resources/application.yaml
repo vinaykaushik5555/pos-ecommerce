@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:example@localhost:27017/product_db
+
+  # Additional Spring configuration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.data.mongodb: DEBUG
+    com.ps.productservice: DEBUG
+
+# Kafka Configuration (example)
+kafka:
+  topic:
+    product: product-topic
+  bootstrap-servers: localhost:9092
+  consumer:
+    group-id: product-group
+    auto-offset-reset: earliest
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# Additional configuration can go here

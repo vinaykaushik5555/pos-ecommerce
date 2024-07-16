@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: Product Service API
+  description: API for managing products in an e-commerce application
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1
+
+paths:
+  /products:
+    get:
+      summary: List all products
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /products/{productId}:
+    get:
+      summary: Get a product by ID
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+    put:
+      summary: Update a product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "60d5ec59fc13ae50c0000010"
+        sku:
+          type: string
+          example: "PROD001"
+        name:
+          type: string
+          example: "Sample Product"
+        description:
+          type: string
+          example: "This is a sample product"
+        price:
+          type: number
+          format: double
+          example: 19.99
+        category:
+          $ref: '#/components/schemas/Category'
+        inventory:
+          $ref: '#/components/schemas/Inventory'
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        createdAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
+        additionalParams:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            warranty: "2 years"
+            manufacturer: "Example Manufacturer"
+            model: "XYZ123"
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "60d5ec59fc13ae50c0000011"
+        name:
+          type: string
+          example: "Electronics"
+        description:
+          type: string
+          example: "Electronic gadgets and devices"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
+
+    Inventory:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          example: 100
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
+
+    Variant:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Color"
+        value:
+          type: string
+          example: "Red"
+
+    Image:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "http://example.com/image1.jpg"
+        addedAt:
+          type: string
+          format: date-time
+          example: "2021-06-25T00:00:00Z"
