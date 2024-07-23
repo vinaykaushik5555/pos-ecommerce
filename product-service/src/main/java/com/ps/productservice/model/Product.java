@@ -3,7 +3,6 @@ package com.ps.productservice.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -15,13 +14,12 @@ import java.util.Map;
 public class Product {
     @Id
     private String id;
-    private String sku;
+    @Indexed(unique = true)
+    private String sku; // SKU field for unique product identification
     private String name;
     private String description;
     private Double price;
-   // @DBRef
-  //  @Indexed
-  //  private Category category;
+    private String categoryId;
     private Inventory inventory;
     private List<Variant> variants;
     private List<Image> images;

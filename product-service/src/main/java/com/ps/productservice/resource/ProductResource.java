@@ -1,5 +1,6 @@
 package com.ps.productservice.resource;
 
+import com.ps.common.utils.validator.RoleRequired;
 import com.ps.productservice.dto.CreateProductRequest;
 import com.ps.productservice.dto.ProductResponse;
 import com.ps.productservice.dto.UpdateProductRequest;
@@ -30,12 +31,14 @@ public class ProductResource {
     }
 
     @PostMapping
+    @RoleRequired({"ROLE_ADMIN"})
     public ResponseEntity<String> createProduct(@RequestBody CreateProductRequest request) {
         String correlationId = productService.createProduct(request);
         return ResponseEntity.ok(correlationId);
     }
 
     @PutMapping("/{productId}")
+    @RoleRequired({"ROLE_ADMIN"})
     public ResponseEntity<String> updateProduct(@PathVariable String productId, @RequestBody UpdateProductRequest request) {
         String correlationId = productService.updateProduct(productId, request);
         return (correlationId != null) ? ResponseEntity.ok(correlationId) : ResponseEntity.notFound().build();

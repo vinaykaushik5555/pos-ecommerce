@@ -1,6 +1,5 @@
 package com.ps.productservice.dto;
 
-
 import lombok.Data;
 
 import java.util.Date;
@@ -14,7 +13,7 @@ public class ProductResponse {
     private String name;
     private String description;
     private Double price;
-    private CategoryDTO category;
+    private String categoryId;
     private InventoryDTO inventory;
     private List<VariantDTO> variants;
     private List<ImageDTO> images;
