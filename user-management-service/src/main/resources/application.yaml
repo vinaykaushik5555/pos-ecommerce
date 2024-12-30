@@ -22,18 +22,23 @@ jwt:
 
 logging:
   level:
-    org.springframework: INFO
+    org.springframework: TRACE
     com.ps.userservice: DEBUG
 
-springfox:
-  documentation:
-    swagger:
-      enabled: true
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    url: /swagger.yaml
+  api-docs:
+    enabled: true
 
 security:
   permit-all-paths:
     - /api/v1/users/login
     - /api/v1/users/register
     - /h2-console/**
+    - /swagger-ui.html
     - /swagger-ui/**
     - /v3/api-docs/**
+    - /swagger.yaml

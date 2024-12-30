@@ -60,11 +60,7 @@ public class SecurityConfig {
 
                 // Configure session management to stateless since we're using JWTs
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // Configure headers to allow H2 console to be displayed in a frame from the same origin
-                .headers(headers -> headers
-                        .frameOptions().sameOrigin());
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // Add JWT filter before the UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

@@ -37,16 +37,8 @@ public class UserResource {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @GetMapping("/{userId}")
-    @ApiOperation(value = "Get user profile", response = UserResponse.class)
-    public ResponseEntity<UserResponse> getUserProfile(
-            @ApiParam(value = "ID of the user to retrieve", required = true)
-            @PathVariable Long userId) {
-        UserResponse userResponse = userService.getUserProfile(userId);
-        return ResponseEntity.ok(userResponse);
-    }
 
-    @GetMapping("email/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<UserResponse> getUserProfile(@PathVariable String email) {
         UserResponse userResponse = userService.getUserProfile(email);
         return ResponseEntity.ok(userResponse);
