@@ -1,0 +1,38 @@
+[
+  {
+    "sku": "ELEC123",
+    "name": "Smartphone",
+    "description": "A high-end smartphone with a large display",
+    "price": 699.99,
+    "categoryId": "1",
+    "inventory": {
+      "quantity": 100
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "color": "black",
+      "memory": "128GB"
+    }
+  },
+  {
+    "sku": "FASH123",
+    "name": "T-Shirt",
+    "description": "A stylish t-shirt made of organic cotton",
+    "price": 19.99,
+    "categoryId": "2",
+    "inventory": {
+      "quantity": 200
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "size": "M",
+      "color": "white"
+    }
+  }
+]

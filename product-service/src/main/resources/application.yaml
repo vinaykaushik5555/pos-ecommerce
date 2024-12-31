@@ -1,0 +1,38 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/product_db
+      #username: root # Optional, if authentication is enabled
+      #password: example # Optional, if authentication is enabled
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      spring.json.value.default.type: com.ps.productservice.event.ProductCreatedEvent
+      spring.json.trusted.packages: "com.ps.productservice.event, java.util, java.lang"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    bootstrap-servers:
+      - localhost:9092
+
+# Additional Spring configuration
+jackson:
+  serialization:
+    write-dates-as-timestamps: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.data.mongodb: DEBUG
+    com.ps.productservice: DEBUG
+
+# Kafka Configuration (example)
+kafka:
+  topic:
+    product: product-topic
+    dlq: product-topic-dlq

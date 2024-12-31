@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "name": "Electronics",
+    "description": "Electronic devices and gadgets"
+  },
+  {
+    "id": "2",
+    "name": "Fashion",
+    "description": "Clothing and accessories"
+  }
+]
