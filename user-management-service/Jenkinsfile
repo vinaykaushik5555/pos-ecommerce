@@ -1,42 +1,79 @@
 pipeline {
     agent any
-
     environment {
-        DOCKER_IMAGE = 'user-management-service:latest'
+        AWS_ACCOUNT_ID = '660334028312'
+        AWS_DEFAULT_REGION = 'ap-south-1'
+        IMAGE_REPO_NAME = 'pos'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        DOCKER_CREDENTIALS_ID = 'aws-ecr-credentials' // Jenkins credentials ID for AWS
+        GIT_CREDENTIALS_ID = 'github-credentials' // Jenkins credentials ID for GitHub
+        GIT_REPO_URL = 'https://github.com/vinaykaushik5555/pos-ecommerce'
+        GIT_BRANCH = 'main'
+        MAVEN_TOOL = 'Maven3' // Ensure this matches the Maven installation name in Jenkins
     }
-
+    tools {
+        maven "${MAVEN_TOOL}"
+    }
     stages {
-        stage('Checkout') {
+        stage('Cloning Git Repository') {
             steps {
-                git branch: 'feature-user-service', url: 'https://github.com/vinaykaushik5555/pos-ecommerce.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "*/${GIT_BRANCH}"]],
+                    userRemoteConfigs: [[
+                        url: "${GIT_REPO_URL}",
+                        credentialsId: "${GIT_CREDENTIALS_ID}"
+                    ]]
+                ])
             }
         }
-
-        stage('Build Maven Project') {
+        stage('Building Maven Project') {
             steps {
-                script {
-                    cd 'user-management-service'
-                    sh 'mvn clean package'
+                dir('user-management-service') {
+                    sh 'mvn clean install'
                 }
             }
         }
-
-        stage('Build Docker Image') {
+        stage('Building Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                    dockerImage = docker.build("${REPOSITORY_URI}:${IMAGE_TAG}")
                 }
             }
         }
-
-        stage('Push Docker Image') {
+        stage('Pushing Docker Image to ECR') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
-                        sh "docker push ${DOCKER_IMAGE}"
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        sh '''
+                            aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}
+                            docker push ${REPOSITORY_URI}:${IMAGE_TAG}
+                        '''
                     }
                 }
             }
+        }
+        stage('Deploying with Helm') {
+            steps {
+                script {
+                    sh '''
+                        helm upgrade --install pos-application ./helm-chart-directory \
+                        --namespace helm-deployment \
+                        --set image.repository=${REPOSITORY_URI} \
+                        --set image.tag=${IMAGE_TAG} \
+                        --set image.pullPolicy=Always
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline executed successfully.'
+        }
+        failure {
+            echo 'Pipeline execution failed.'
         }
     }
 }

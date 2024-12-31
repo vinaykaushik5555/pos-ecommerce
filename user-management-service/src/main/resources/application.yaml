@@ -22,7 +22,7 @@ jwt:
 
 logging:
   level:
-    org.springframework: TRACE
+    org.springframework: INFO
     com.ps.userservice: DEBUG
 
 springdoc:

@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/user-management-service-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port
-EXPOSE 8080
+EXPOSE 8081
 
 # Set environment variables for different environments
 # These can be overridden by passing them during runtime or in Kubernetes deployment files
