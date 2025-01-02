@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   datasource:
@@ -23,7 +23,7 @@ jwt:
 logging:
   level:
     org.springframework: INFO
-    com.ps.userservice: DEBUG
+    com.ps.userservice: INFO
 
 springdoc:
   swagger-ui:
