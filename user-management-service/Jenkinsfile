@@ -95,7 +95,7 @@ pipeline {
                     }
                     // Retrieve the service IP
                     def serviceIP = sh(
-                        script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'",
+                        script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}:{.spec.ports[0].port}'",
                         returnStdout: true
                     ).trim()
                     if (serviceIP) {
@@ -116,3 +116,5 @@ pipeline {
         }
     }
 }
+
+kubectl get svc user-service --namespace pos -o jsonpath=
