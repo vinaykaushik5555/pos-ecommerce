@@ -14,7 +14,7 @@ pipeline {
         KUBE_NAMESPACE = 'pos'
         RELEASE_NAME = 'user-service'
         SERVICE_NAME = 'user-service' // Update if your service name differs
-        SERVICE_PORT = '8081' // Update to your service's port if different
+        SERVICE_PORT = '8080' // Update to your service's port if different
     }
     tools {
         maven "${MAVEN_TOOL}"
@@ -87,7 +87,7 @@ pipeline {
                     timeout(time: 5, unit: 'MINUTES') {
                         waitUntil {
                             def svc = sh(
-                                script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'",
+                                script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'",
                                 returnStdout: true
                             ).trim()
                             return svc
@@ -95,7 +95,7 @@ pipeline {
                     }
                     // Retrieve the service IP
                     def serviceIP = sh(
-                        script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}:{.spec.ports[0].port}'",
+                        script: "kubectl get svc ${SERVICE_NAME} --namespace ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'",
                         returnStdout: true
                     ).trim()
                     if (serviceIP) {
@@ -103,6 +103,15 @@ pipeline {
                     } else {
                         echo "Service IP could not be retrieved. Ensure the service has an external endpoint."
                     }
+                }
+            }
+        }
+        stage('Delete Deployment (Manual)') {
+            steps {
+                script {
+                    input message: 'Approve deletion of deployment?', ok: 'Delete'
+                    sh "helm uninstall ${RELEASE_NAME} --namespace ${KUBE_NAMESPACE}"
+                    echo "Deployment deleted successfully."
                 }
             }
         }
@@ -116,5 +125,3 @@ pipeline {
         }
     }
 }
-
-kubectl get svc user-service --namespace pos -o jsonpath=
