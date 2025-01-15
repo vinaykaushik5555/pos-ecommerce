@@ -35,12 +35,25 @@ public class ProductService {
         return productRepository.findAll(pageable).map(productMapper::toDto);
     }
 
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param productId the ID of the product to retrieve
+     * @return the product details as a ProductResponse if found,
+     *         or null if the product does not exist
+     */
     public ProductResponse getProduct(String productId) {
         return productRepository.findById(productId)
                 .map(productMapper::toDto)
                 .orElse(null);
     }
 
+    /**
+     * Creates a new product with the provided details.
+     *
+     * @param request the new product information
+     * @return a correlation ID if the creation is successful
+     */
     public String createProduct(CreateProductRequest request) {
         String correlationId = UUID.randomUUID().toString();
         ProductCreatedEvent event = productMapper.toEvent(request, correlationId);
@@ -48,6 +61,13 @@ public class ProductService {
         return correlationId;
     }
 
+    /**
+     * Updates an existing product with the provided details.
+     *
+     * @param productId the ID of the product to update
+     * @param request the updated product information
+     * @return a correlation ID if the update is successful, or null if the product is not found
+     */
     public String updateProduct(String productId, UpdateProductRequest request) {
         return productRepository.findById(productId)
                 .map(existingProduct -> {
