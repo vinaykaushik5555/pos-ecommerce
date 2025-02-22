@@ -13,9 +13,8 @@ springdoc:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:9092
-      username: root # Optional, if authentication is enabled
-      password: root@321 # Optional, if authentication is enabled
+      uri: mongodb://localhost:27017/product-db
+
   kafka:
     bootstrap-servers: localhost:9092
     #properties:

@@ -8,5 +8,45 @@
     "id": "2",
     "name": "Fashion",
     "description": "Clothing and accessories"
+  },
+  {
+    "id": "3",
+    "name": "Home Appliances",
+    "description": "Appliances for home use"
+  },
+  {
+    "id": "4",
+    "name": "Books",
+    "description": "Printed and digital books"
+  },
+  {
+    "id": "5",
+    "name": "Sports Equipment",
+    "description": "Gear and equipment for sports"
+  },
+  {
+    "id": "6",
+    "name": "Toys",
+    "description": "Toys and games for children"
+  },
+  {
+    "id": "7",
+    "name": "Beauty Products",
+    "description": "Cosmetics and skincare products"
+  },
+  {
+    "id": "8",
+    "name": "Automotive",
+    "description": "Automobile parts and accessories"
+  },
+  {
+    "id": "9",
+    "name": "Health & Wellness",
+    "description": "Health supplements and wellness products"
+  },
+  {
+    "id": "10",
+    "name": "Groceries",
+    "description": "Food and household essentials"
   }
 ]

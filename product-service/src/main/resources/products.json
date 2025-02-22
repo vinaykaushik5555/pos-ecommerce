@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "sku": "ELEC123",
     "name": "Smartphone",
     "description": "A high-end smartphone with a large display",
@@ -18,6 +19,7 @@
     }
   },
   {
+    "id": "2",
     "sku": "FASH123",
     "name": "T-Shirt",
     "description": "A stylish t-shirt made of organic cotton",
@@ -33,6 +35,158 @@
     "additionalParams": {
       "size": "M",
       "color": "white"
+    }
+  },
+  {
+    "id": "3",
+    "sku": "HOME123",
+    "name": "Blender",
+    "description": "A powerful blender for making smoothies",
+    "price": 49.99,
+    "categoryId": "3",
+    "inventory": {
+      "quantity": 50
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "power": "500W",
+      "color": "red"
+    }
+  },
+  {
+    "id": "4",
+    "sku": "BOOK123",
+    "name": "Science Fiction Novel",
+    "description": "A thrilling science fiction adventure",
+    "price": 14.99,
+    "categoryId": "4",
+    "inventory": {
+      "quantity": 150
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "author": "John Smith",
+      "pages": 320
+    }
+  },
+  {
+    "id": "5",
+    "sku": "SPORT123",
+    "name": "Yoga Mat",
+    "description": "A comfortable yoga mat for all exercises",
+    "price": 29.99,
+    "categoryId": "5",
+    "inventory": {
+      "quantity": 80
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "material": "Eco-friendly",
+      "color": "blue"
+    }
+  },
+  {
+    "id": "6",
+    "sku": "TOY123",
+    "name": "Building Blocks",
+    "description": "Colorful building blocks for kids",
+    "price": 24.99,
+    "categoryId": "6",
+    "inventory": {
+      "quantity": 120
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "pieces": 100,
+      "age": "3+"
+    }
+  },
+  {
+    "id": "7",
+    "sku": "BEAUTY123",
+    "name": "Face Cream",
+    "description": "A nourishing face cream for daily use",
+    "price": 39.99,
+    "categoryId": "7",
+    "inventory": {
+      "quantity": 60
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "ingredients": "Aloe Vera, Vitamin E",
+      "volume": "50ml"
+    }
+  },
+  {
+    "id": "8",
+    "sku": "AUTO123",
+    "name": "Car Air Freshener",
+    "description": "A long-lasting car air freshener",
+    "price": 9.99,
+    "categoryId": "8",
+    "inventory": {
+      "quantity": 300
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "scent": "Lavender",
+      "duration": "30 days"
+    }
+  },
+  {
+    "id": "9",
+    "sku": "HEALTH123",
+    "name": "Vitamin C Supplement",
+    "description": "Boost your immunity with Vitamin C",
+    "price": 19.99,
+    "categoryId": "9",
+    "inventory": {
+      "quantity": 90
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "tablets": 60,
+      "dosage": "500mg"
+    }
+  },
+  {
+    "id": "10",
+    "sku": "GROC123",
+    "name": "Organic Almonds",
+    "description": "Healthy organic almonds for snacking",
+    "price": 15.99,
+    "categoryId": "10",
+    "inventory": {
+      "quantity": 200
+    },
+    "variants": [],
+    "images": [],
+    "createdAt": "2024-07-20T12:00:00Z",
+    "updatedAt": "2024-07-20T12:00:00Z",
+    "additionalParams": {
+      "weight": "500g",
+      "origin": "California"
     }
   }
 ]
