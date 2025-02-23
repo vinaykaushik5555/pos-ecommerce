@@ -6,6 +6,9 @@ info:
 servers:
   - url: http://localhost:8081/api/v1
     description: Local server
+  - url: http://4.188.66.66/api/v1
+    description: Azure server
+
 
 paths:
   /users/register:
