@@ -35,10 +35,9 @@ springdoc:
 
 security:
   permit-all-paths:
-    - /api/v1/users/login
-    - /api/v1/users/register
+    - /api/v1/users/**
     - /h2-console/**
     - /swagger-ui.html
     - /swagger-ui/**
     - /v3/api-docs/**
-    - /swagger.yaml
+    - /api-docs/**
